@@ -5,8 +5,6 @@ import Foundation
 struct QuizBrain {
    
     let quiz = [
-        Question(q: "Türkiye'nin en büyük kulübü Galatasaray'dır.", a: "True"),
-        Question(q: "Yeditepe 7 senedir", a: "False"),
         Question(q: "A slug's blood is green.", a: "True"),
         Question(q: "Approximately one quarter of human bones are in the feet.", a: "True"),
         Question(q: "The total surface area of two human lungs is approximately 70 square metres.", a: "True"),
@@ -22,12 +20,36 @@ struct QuizBrain {
     
     ]
     var questionNumber = 0
+    var score = 0
     
-    func checkAnswer(_ userAnswer: String) -> Bool {
-        if userAnswer == quiz[questionNumber].answer
-        return true
+    mutating func checkAnswer(_ userAnswer: String) -> Bool {
+         if userAnswer == quiz[questionNumber].answer {
+             score += 1
+             return true
     } else {
         return false
     }
+}
+    func getScore() -> Int {
+        return score
+    }
+    func getQuestionText() -> String {
+        return quiz[questionNumber].text
+}
+    func getProgress() -> Float {
+        let progress = Float(questionNumber) / Float(quiz.count)
+        return progress
     
+}
+
+    mutating func nextQuestion() {
+        if questionNumber + 1 < quiz.count {
+            questionNumber += 1
+            
+        } else {
+            questionNumber = 0
+            score = 0
+        
+    }
+}
 }
